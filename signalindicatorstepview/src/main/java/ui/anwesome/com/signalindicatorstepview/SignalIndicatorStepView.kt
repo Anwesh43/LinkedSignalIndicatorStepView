@@ -11,6 +11,7 @@ import android.graphics.Paint
 import android.graphics.Canvas
 import android.graphics.Color
 import android.content.Context
+import android.content.pm.ActivityInfo
 
 val nodes : Int = 5
 
@@ -196,6 +197,7 @@ class SignalIndicatorStepView(ctx : Context) : View(ctx) {
 
     companion object {
         fun create(activity : Activity) : SignalIndicatorStepView {
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             val view : SignalIndicatorStepView = SignalIndicatorStepView(activity)
             activity.setContentView(view)
             return view
