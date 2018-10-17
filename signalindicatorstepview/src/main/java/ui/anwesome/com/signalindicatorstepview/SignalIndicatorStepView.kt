@@ -166,4 +166,27 @@ class SignalIndicatorStepView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : SignalIndicatorStepView) {
+
+        private val animator : Animator = Animator(view)
+
+        private val ssi : SignalStepIndicator = SignalStepIndicator(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#BDBDBD"))
+            ssi.draw(canvas, paint)
+            animator.animate {
+                ssi.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            ssi.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
