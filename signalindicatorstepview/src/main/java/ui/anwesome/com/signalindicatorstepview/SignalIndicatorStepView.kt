@@ -4,6 +4,7 @@ package ui.anwesome.com.signalindicatorstepview
  * Created by anweshmishra on 17/10/18.
  */
 
+import android.app.Activity
 import android.view.View
 import android.view.MotionEvent
 import android.graphics.Paint
@@ -189,6 +190,14 @@ class SignalIndicatorStepView(ctx : Context) : View(ctx) {
             ssi.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+        fun create(activity : Activity) : SignalIndicatorStepView {
+            val view : SignalIndicatorStepView = SignalIndicatorStepView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
