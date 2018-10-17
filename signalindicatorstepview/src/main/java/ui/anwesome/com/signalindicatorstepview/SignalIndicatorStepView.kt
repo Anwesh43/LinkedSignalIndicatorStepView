@@ -31,9 +31,9 @@ fun Canvas.drawSISNode(i : Int, scale : Float, paint : Paint) {
         save()
         translate(kGap * j, 0f)
         paint.color = Color.parseColor("#9E9E9E")
-        drawLine(0f, 0f, 0f, -kGap, paint)
+        drawLine(0f, 0f, 0f, -kGap * (j + 1), paint)
         paint.color = Color.parseColor("#3F51B5")
-        drawLine(0f, 0f, 0f, -kGap * sc, paint)
+        drawLine(0f, 0f, 0f, -kGap * sc * (j + 1), paint)
         restore()
     }
     restore()
@@ -60,7 +60,7 @@ class SignalIndicatorStepView(ctx : Context) : View(ctx) {
 
     data class State(var scale : Float = 0f, var prevScale : Float = 0f, var dir : Float = 0f) {
         fun update(cb : (Float) -> Unit) {
-            scale += 0.05f * dir
+            scale += (0.1f / factor) * dir
             if (Math.abs(scale - prevScale) > 1) {
                 scale = prevScale + dir
                 dir = 0f
@@ -72,6 +72,7 @@ class SignalIndicatorStepView(ctx : Context) : View(ctx) {
         fun startUpdating(cb : () -> Unit) {
             if (dir == 0f) {
                 dir = 1f - 2 * prevScale
+                cb()
             }
         }
     }
